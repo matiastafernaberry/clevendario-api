@@ -1,24 +1,28 @@
-import { mongoose } from mongoose
+import mongoose from 'mongoose'
 
 const actionSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    surname: {
+      type: String,
+      required: true,
+    },
+    action: {
+      type: JSON,
+      required: true,
+    },
   },
-  surname: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-  action: {
-    type: String,
-    required: true,
-  },
-})
+  {
+    timestamps: true,
+    versionKey: false
+  }
+)
 
-const Modelo = mongoose.model('Action', actionSchema);
-
-module.exports = Modelo
+export default mongoose.model('Action', actionSchema)
