@@ -17,6 +17,10 @@ const actionSchema = new mongoose.Schema({
       type: JSON,
       required: true,
     },
+    date: {
+      type: Date,
+      required: true
+    }
   },
   {
     timestamps: true,
