@@ -70,6 +70,7 @@ export const getByEmail = async (req, res) => {
 
 
 //Update action
+
 export const updateActionController = async (req, res) => {
   const { email } = req.params;
   const { action } = req.body;
