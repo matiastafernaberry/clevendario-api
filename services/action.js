@@ -1,25 +1,23 @@
-import Action from '../models/action.js'
-import { ACTIONS } from '../config.js'
+import Action from '../models/action.js';
+import { ACTIONS } from '../config.js';
 
 export const getAll = async () => {
-  return await Action.find({})
-}
+  return await Action.find({});
+};
 
 export const defineAction = async (actionn) => {
-  let ACTION = {}
-  ACTIONS.map(action => {
+  let ACTION = {};
+  ACTIONS.forEach((action) => {
     if (actionn === action.id) {
-      ACTION = action
+      ACTION = action;
     }
-  })
-  return ACTION
-}
+  });
+  return ACTION;
+};
 
 export const getActionByEmail = async (email) => {
-
-  return Action.find({ email })
-}
-
+  return Action.find({ email });
+};
 
 export const updateAction = async (email, actionn) => {
   try {
@@ -32,7 +30,7 @@ export const updateAction = async (email, actionn) => {
       return null;
     }
 
-    existingAction.action = defineAction(actionn);
+    existingAction.action = await defineAction(actionn);
     const result = await existingAction.save();
 
     return result;
@@ -42,22 +40,17 @@ export const updateAction = async (email, actionn) => {
   }
 };
 
-  return Action.find({email})
-}
-
 export const getActionsByDate = async (date, email) => {
-  const init = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-  const fin = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
-  
+  const init = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const fin = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 
   const actions = await Action.find({
     date: {
       $gte: init,
-      $lt: fin
+      $lt: fin,
     },
-    email
-  })
+    email,
+  });
 
-  return actions
-}
-
+  return actions;
+};
