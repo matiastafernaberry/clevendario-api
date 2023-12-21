@@ -14,6 +14,13 @@ export const register = async (req, res) => {
     role
   } = req.body
 
+  const user = await getUserByEmail(email)
+  if (user) {
+    return res.status(409).json({
+      message: 'User already exist!'
+    })
+  }
+
   const passwordHash = await encrypt(email, password)
   const rol = await defineRole(role)
   

@@ -3,8 +3,7 @@ import mongoose from 'mongoose'
 const actionSchema = new mongoose.Schema({
     email: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     },
     name: {
       type: String,
@@ -18,6 +17,10 @@ const actionSchema = new mongoose.Schema({
       type: JSON,
       required: true,
     },
+    date: {
+      type: Date,
+      required: true
+    }
   },
   {
     timestamps: true,
