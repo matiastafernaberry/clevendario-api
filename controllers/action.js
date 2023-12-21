@@ -1,5 +1,5 @@
 import Action from '../models/action.js'
-import { defineAction, getAll, getActionByEmail } from '../services/action.js'
+import { defineAction, getAll, getActionByEmail, getActionsByDate } from '../services/action.js'
 import { getUserByEmail } from '../services/user.js'
 
 export const create = async (req, res) => {
@@ -7,6 +7,15 @@ export const create = async (req, res) => {
     email,
     action
   } = req.body
+
+  const today = new Date()
+  const actions = await getActionsByDate(today, email)
+  console.log(actions)
+  if (actions.length > 0) {
+    return res.status(400).json({
+      message: 'You have already registered an action today'
+    })
+  }
 
   const user = await getUserByEmail(email)
   if (!user) {
@@ -22,7 +31,8 @@ export const create = async (req, res) => {
       email,
       name: user.name,
       surname: user.surname,
-      action: actionDefined
+      action: actionDefined,
+      date: today
     })
 
     const result = await newAction.save()
@@ -51,7 +61,7 @@ export const getByEmail = async (req, res) => {
 
   if (!email) {
     return res.status(400).json({
-      message: 'You have to send an email in the query parameters'
+      message: 'You have to send an email in query parameters'
     })
   }
   try {
