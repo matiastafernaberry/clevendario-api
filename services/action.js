@@ -16,5 +16,27 @@ export const defineAction = async (actionn) => {
 }
 
 export const getActionByEmail = async (email) => {
-  return Action.find({email})
+  return Action.find({ email })
 }
+
+
+export const updateAction = async (email, actionn) => {
+  try {
+    const existingAction = await Action.findOne({
+      email,
+      createdAt: { $gte: new Date() },
+    });
+
+    if (!existingAction) {
+      return null;
+    }
+
+    existingAction.action = defineAction(actionn);
+    const result = await existingAction.save();
+
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Internal Server Error');
+  }
+};
