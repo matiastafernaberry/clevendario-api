@@ -116,3 +116,12 @@ export const updateActionController = async (req, res) => {
   }
 };
 
+export const deleteMany = async (req, res) => {
+  try {
+    // Delete all documents from the collection
+    const result = await Action.deleteMany({});
+    return res.status(200).json({ message: 'All data was deleted, Congratulations!!!' });
+  } catch (err) {
+    console.error('Error deleting documents:', err);
+  }
+};

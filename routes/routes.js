@@ -3,7 +3,7 @@ const router = Router()
 
 import { welcome } from '../controllers/health.js'
 import { register, login } from '../controllers/user.js'
-import { create, getAllActions, getByEmail, updateActionController } from '../controllers/action.js'
+import { create, getAllActions, getByEmail, updateActionController, deleteMany } from '../controllers/action.js'
 
 router.get('/health', welcome)
 
@@ -24,6 +24,9 @@ router.get('/action/getByEmail', getByEmail)
 
 // action update
 router.put('/action/update/:email', updateActionController);
+
+// action delete
+router.get('/action/deleteMany', deleteMany);
 
 
 
