@@ -1,0 +1,21 @@
+# fly.toml app configuration file generated for clevendario-api on 2023-12-21T15:13:57-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "clevendario-api"
+primary_region = "scl"
+
+[build]
+
+[http_service]
+  internal_port = 3000
+  auto_stop_machines = false
+  auto_start_machines = false
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 1024
